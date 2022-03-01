@@ -1,39 +1,31 @@
-import { useState } from 'react';
-import './App.css';
-
+//3rd parties
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+// function components
 import { Card } from './Card'
 import { Pagination } from './Pagination'
+//styles
+import './App.css';
 
 function App() {
-  const [page, setPage] = useState(1)
-  const itensPerPage = 3;
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setPageCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
-  const cards = [
-    <Card number={1} />,
-    <Card number={2} />,
-    <Card number={3} />,
-    <Card number={4} />,
-    <Card number={5} />,
-    <Card number={6} />,
-    <Card number={7} />,
-    <Card number={8} />,
-    <Card number={9} />,
-    <Card number={10} />
-  ]
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
+      setPosts(res.data);
+      setLoading(false);
+    }
+    fetchPosts();
+  }, []);
 
   return (
     <div className="App">
-      {cards.map((card, index) => {
-        if (index < itensPerPage) {
-          return card
-        }
-      })}
-      
-      <div>
-        <span onClick={() => setPage(page-1)}>Voltar</span> | 
-        <span>Página atual {page} </span> |
-        <span onClick={() => setPage(page+1)}>Avançar</span>
-      </div>
+      <Card posts={posts} loading={loading} />
     </div>
   );
 }

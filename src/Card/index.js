@@ -2,8 +2,15 @@ import React from 'react';
 
 import './index.css'
 
-export const Card = ({number}) => {
+export const Card = ({ posts, loading }) => {
+  if (loading) {
+    return <h2>Carregando...</h2>
+  }
   return (
-    <div className="card">Card {number}</div>
-  )
-}
+    <div className="cards-container">
+      {posts.map(post => (
+        <div key={post.id} className="card">{post.title}</div>
+    ))}
+    </div>
+  );
+};

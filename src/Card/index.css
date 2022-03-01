@@ -1,6 +1,11 @@
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+}
 .card {
+  padding: .2rem;
   width: 250px;
   height:250px;
-  background-color: red;
-  margin: 1rem
+  background-color: #b6b6b6;
+  margin: 1rem;
 }

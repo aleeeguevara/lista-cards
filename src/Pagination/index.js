@@ -1,11 +1,12 @@
 import React from "react"
+import './index.css';
 
 export const Pagination = ({ page, setPage }) => {
   return (
-    <>
-      <span onClick={() => setPage(page-1)}>Voltar</span> | 
+    <div >
+      <span className="pagination" onClick={() => setPage(page-1)}>Voltar</span> | 
       <span>Página atual {page} </span> |
-      <span onClick={() => setPage(page+1)}>Avançar</span>
-    </>
+      <span className="pagination" onClick={() => setPage(page+1)}>Avançar</span>
+    </div>
   )
 }
