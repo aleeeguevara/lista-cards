@@ -11,7 +11,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setPageCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [postsPerPage, setPostsPerPage] = useState(9);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -20,12 +20,18 @@ function App() {
       setPosts(res.data);
       setLoading(false);
     }
-    fetchPosts();
+    fetchPosts(); 
   }, []);
+
+  //get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPost = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <div className="App">
-      <Card posts={posts} loading={loading} />
+      <Card posts={currentPost} loading={loading} />
+      <Pagination setPage={setPageCurrentPage} page={currentPage} />
     </div>
   );
 }
